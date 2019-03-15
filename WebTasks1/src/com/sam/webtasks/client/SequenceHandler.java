@@ -21,7 +21,9 @@
 package com.sam.webtasks.client;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
+import com.google.gwt.user.client.Random;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.sam.webtasks.basictools.CheckIdExists;
@@ -62,63 +64,172 @@ public class SequenceHandler {
 				ClickPage.Run(Instructions.Get(0), "Next");
 				break;
 			case 2:
-				ClickPage.Run(Instructions.Get(1),  "Next");
+				IOtask2Block block0 = new IOtask2Block();
+				block0.totalCircles = 8;
+				block0.blockNum = 0;
+				block0.nTargets = 0;
+				block0.showPoints = false;
+				block0.showPostTrialFeedback=false;
+				block0.Run();
 				break;
 			case 3:
-				//this runs the task with default settings: no choice at the beginning, and just one trial
-				IOtask2Block block1 = new IOtask2Block();
-				block1.showPostTrialFeedback=false; //this switches off the feedback after the trial
-				block1.Run();
+				ClickPage.Run(Instructions.Get(1),  "Next");
 				break;
 			case 4:
-				if (IOtask2BlockContext.getnHits() < 8) { //if there were fewer than 8 hits on the last trial
+				IOtask2Block block1 = new IOtask2Block();
+				block1.totalCircles = 8;
+				block1.blockNum = 1;
+				block1.nTargets = 1;
+				block1.showPoints = false;
+				block1.showPostTrialFeedback=false;
+				block1.Run();
+				break;
+			case 5:
+				if (IOtask2BlockContext.getnHits() == 0) { 
 					SequenceHandler.SetPosition(SequenceHandler.GetPosition()-2); //this line means that instead of moving forward we will repeat the previous instructions
-					ClickPage.Run("You need to get at least 8 correct.", "Try again");
+					ClickPage.Run("You did not drag the special circle to the instructed side of the square.", "Try again");
 				} else {
 					SequenceHandler.Next(); //move to the next instruction
 				}
 				break;
-			case 5:
-				if (Counterbalance.getFactorLevel("practiceDifficulty") == Names.PRACTICE_EASY) {
-					ClickPage.Run("This one will be easy.", "Next");
-				} else if (Counterbalance.getFactorLevel("practiceDifficulty") == Names.PRACTICE_DIFFICULT) {
-					ClickPage.Run("This one will be difficult.", "Next");
-				}
-				break;
 			case 6:
-				IOtask2Block block2 = new IOtask2Block();
-				block2.targetValues.add(0); //forced internal condition
-				block2.showPoints=false;    //don't display the number of points so far at the beginning. The default is to show this
-				block2.blockNum=2;          //we always set the block number so that data from each block is kept separate
-				
-				if (Counterbalance.getFactorLevel("practiceDifficulty") == Names.PRACTICE_EASY) {
-					block2.nTargets=4;
-				} else if (Counterbalance.getFactorLevel("practiceDifficulty") == Names.PRACTICE_DIFFICULT) {
-					block2.nTargets=16;
-				}
-				
-				block2.Run();
+				ClickPage.Run(Instructions.Get(2), "Next");
 				break;
 			case 7:
-				IOtask2Block block3 = new IOtask2Block();
-				block3.targetValues.add(10); //forced external condition
-				block3.showPoints=false;
-				block3.blockNum=3;
-				block3.Run();
+				IOtask2Block block2 = new IOtask2Block();
+				block2.totalCircles = 17;
+				block2.blockNum = 2;
+				block2.nTargets = 7;
+				block2.showPoints = false;
+				block2.showPostTrialFeedback=false;
+				block2.Run();
 				break;
 			case 8:
-				Slider.Run(Instructions.Get(2),  "None of them",  "All of them");
+				Slider.Run(Instructions.Get(12),  "None of them",  "All of them");
 				break;
 			case 9:
-				//save the selected slider value to the database
-				PHP.logData("sliderValue",  "" + Slider.getSliderValue(), true);
+				PHP.logData("slider1", ""+Slider.getSliderValue(), true);
 				break;
 			case 10:
-				IOtask2Block block4 = new IOtask2Block();
-				block4.standard17block = true; //run a standard block of 17 trials
-				block4.Run();
+				ClickPage.Run(Instructions.Get(4), "Next");
 				break;
 			case 11:
+				IOtask2Block block3 = new IOtask2Block();
+				block3.totalCircles = 17;
+				block3.blockNum = 3;
+				block3.nTargets = 7;
+				block3.showPoints = false;
+				block3.showPostTrialFeedback=false;
+				block3.Run();
+				break;
+			case 12:
+				if (IOtask2BlockContext.getnHits() == 0) { 
+					SequenceHandler.SetPosition(SequenceHandler.GetPosition()-2); //this line means that instead of moving forward we will repeat the previous instructions
+					ClickPage.Run("You need to respond correctly to at least 5 of the special circles to continue.", "Try again");
+				} else {
+					SequenceHandler.Next(); //move to the next instruction
+				}
+				break;
+			case 13:
+				ClickPage.Run(Instructions.Get(5), "Next");
+				break;
+			case 14:
+				ClickPage.Run(Instructions.Get(6), "Next");
+				break;
+			case 15:
+				ClickPage.Run(Instructions.Get(7),  "Next");
+				break;
+			case 16:
+				ClickPage.Run(Instructions.Get(8),  "Next");
+				break;
+			case 17:
+				ClickPage.Run(Instructions.Get(9),  "Next");
+				break;
+			case 18:
+				IOtask2Block block4 = new IOtask2Block();
+				block4.totalCircles = 17;
+				block4.blockNum = 4;
+				block4.nTargets = 7;
+				block4.showPoints = true;
+				block4.showPostTrialFeedback=false;
+				block4.ongoingStimType = Names.ONGOING_STIM_NUMBERS;
+				block4.standard13block = true;
+				
+				
+				block4.Run();
+				break;
+			case 19:
+				ClickPage.Run(Instructions.Get(10),  "Next");
+				break;
+			case 20:
+				IOtask2Block block5 = new IOtask2Block();
+				block5.totalCircles = 17;
+				block5.ongoingStimType = Names.ONGOING_STIM_LETTERS;
+				block5.blockNum = 5;
+				block5.nTargets = 7;
+				block5.showPoints = false;
+				block5.scorePoints = false;
+				block5.showPostTrialFeedback=false;
+
+				block5.Run();
+				break;
+			case 21:
+				Slider.Run(Instructions.Get(13),  "None of them",  "All of them");
+				break;
+			case 22:
+				PHP.logData("slider2", ""+Slider.getSliderValue(), true);
+				break;	
+			case 23:
+				IOtask2Block block6 = new IOtask2Block();
+				block6.totalCircles = 17;
+				block6.ongoingStimType = Names.ONGOING_STIM_LETTERS;
+				block6.blockNum = 6;
+				block6.nTargets = 7;
+				block6.showPoints = true;
+				block6.showPostTrialFeedback=false;
+				
+				block6.standard13block=true;
+
+				block6.Run();
+				break;
+			case 24:
+				ClickPage.Run(Instructions.Get(11),  "Next");
+				break;
+			case 25:
+				IOtask2Block block7 = new IOtask2Block();
+				block7.totalCircles = 17;
+				block7.ongoingStimType = Names.ONGOING_STIM_NUMBERS_DESCENDING;
+				block7.blockNum = 7;
+				block7.nTargets = 7;
+				block7.showPoints = false;
+				block7.scorePoints = false;
+				block7.showPostTrialFeedback=false;
+
+				block7.Run();
+				break;
+			case 26:
+				Slider.Run(Instructions.Get(14),  "None of them",  "All of them");
+				break;
+			case 27:
+				PHP.logData("slider3", ""+Slider.getSliderValue(), true);
+				break;
+			case 28:
+				IOtask2Block block8 = new IOtask2Block();
+				block8.totalCircles = 17;
+				block8.ongoingStimType = Names.ONGOING_STIM_NUMBERS_DESCENDING;
+				block8.blockNum = 8;
+				block8.nTargets = 7;
+				block8.showPoints = true;
+				block8.showPostTrialFeedback=false;
+				
+				block8.standard13block=true;
+
+				block8.Run();
+				break;
+			case 29:
+				PHP.logData("finish",  ""+TimeStamp.Now(), true);
+				break;
+			case 30:
 				Finish.Run();
 				break;
 			}
@@ -278,5 +389,9 @@ public class SequenceHandler {
 	// get current position
 	public static int GetPosition() {
 		return (sequencePosition.get(whichLoop));
+	}
+	
+	public static int GetMainPosition() {
+		return (sequencePosition.get(0));
 	}
 }

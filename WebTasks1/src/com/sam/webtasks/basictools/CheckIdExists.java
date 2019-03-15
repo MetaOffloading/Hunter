@@ -8,7 +8,8 @@ import com.sam.webtasks.client.SessionInfo;
 
 public class CheckIdExists {
 	public static void Run() {
-		if (SessionInfo.localTesting) {
+		SequenceHandler.Next();
+		/*if (SessionInfo.localTesting) {
 			SequenceHandler.Next();
 		} else {
 			if (SessionInfo.participantID.startsWith("A")) {
@@ -23,6 +24,6 @@ public class CheckIdExists {
 
 				RootPanel.get().add(error);
 			}
-		}
+		}*/
 	}
 }
